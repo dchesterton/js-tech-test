@@ -4,7 +4,7 @@ import {StyleSheet, css} from "aphrodite";
 
 const id = f => f;
 
-// @todo: Identify visually when a market is showing it's outcomes in the middle panel
+// @todo: Identify visually when a market is showing its outcomes in the middle panel
 const MarketTitle = ({ name, outcomes, marketId, onClick}) => {
     const count = outcomes.length;
     const clickHandler = () => {

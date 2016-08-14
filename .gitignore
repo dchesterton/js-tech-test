@@ -89,6 +89,9 @@ Temporary Items
 # Mongo Explorer plugin:
 .idea/mongoSettings.xml
 
+.idea
+*.iml
+
 ## File-based project format:
 *.iws
 
@@ -109,3 +112,4 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+test/
