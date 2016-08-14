@@ -1,11 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 import {values, map, head, assoc} from "ramda";
 import {StyleSheet, css} from "aphrodite";
-
-const id = f => f;
+import {firstMarketId} from "../model/markets";
 
 // @todo: Identify visually when a market is showing its outcomes in the middle panel
-const MarketTitle = ({ name, outcomes, marketId, onClick}) => {
+export const MarketTitle = ({ name, outcomes, marketId, onClick}) => {
     const count = outcomes.length;
     const clickHandler = () => {
         onClick(marketId);
@@ -19,7 +18,7 @@ const MarketTitle = ({ name, outcomes, marketId, onClick}) => {
 };
 
 // @todo: Identify visually when an outcome is "selected"
-const Outcome = ({name, price, outcomeId, onClick}) => {
+export const Outcome = ({name, price, outcomeId, onClick}) => {
     const clickHandler = () => {
         onClick(outcomeId);
     };
@@ -33,19 +32,42 @@ const Outcome = ({name, price, outcomeId, onClick}) => {
 
 const pickMarketOutcomes = outcomes => market => market.outcomes.map(id => outcomes[id]);
 
-// @todo: Order Markets by displayOrder
-export const Markets = ({ markets, outcomes, marketId, onMarketClick = id, onOutcomeClick = id }) => {
+export const MarketList = ({markets, onMarketClick}) => {
     const marketList = map(MarketTitle, map(assoc("onClick", onMarketClick), values(markets)));
-    const market = markets[marketId];
-    const outcomeList = map(Outcome, map(assoc("onClick", onOutcomeClick), pickMarketOutcomes(outcomes)(market)));
-    return (
-        <div className={css(styles.panel)}>
-            <div className={css(styles.markets)}>{marketList}</div>
-            <div className={css(styles.outcomes)}>{outcomeList}</div>
-        </div>
-    )
+    return <div className={css(styles.markets)}>{marketList}</div>
 };
 
+// @todo: Order Markets by displayOrder
+// @todo: Could the display of outcomes be abstracted in a testable way (similar to MarketList)?
+export class Markets extends Component {
+    constructor(props) {
+        super(props);
+        const {markets} = props;
+        this.state = {
+            currentMarket: firstMarketId(values(markets))
+        }
+    }
+
+    onMarketClick(id) {
+        this.setState({
+            currentMarket: id
+        }) ;
+    }
+
+    render() {
+        const {onOutcomeClick, outcomes, markets} = this.props;
+        const market = markets[this.state.currentMarket];
+        const outcomeList = map(Outcome, map(assoc("onClick", onOutcomeClick), pickMarketOutcomes(outcomes)(market)));
+        return (
+            <div className={css(styles.panel)}>
+                <MarketList onMarketClick={this.onMarketClick.bind(this)} markets={markets}/>
+                <div className={css(styles.outcomes)}>{outcomeList}</div>
+            </div>
+        )
+    }
+}
+
+// @todo: How can we make the styles more re-usable?
 const styles = StyleSheet.create({
     marketTitle: {
         fontFamily: "sans-serif",

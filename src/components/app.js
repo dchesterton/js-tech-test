@@ -19,15 +19,9 @@ import {Selections} from "./selections";
 export class App extends Component {
     constructor(props) {
         super(props);
-        const { markets } = props;
         this.state = {
-            currentMarket: prop("marketId", head(values(markets))),
             selections: []
         }
-    }
-
-    onMarketClick(id) {
-        this.setState({ currentMarket: id });
     }
 
     onOutcomeClick(id) {
@@ -43,14 +37,13 @@ export class App extends Component {
             <div className={css(styles.parent)}>
                 <div className={css(styles.markets)}>
                     <Markets markets={markets} outcomes={outcomes} marketId={this.state.currentMarket}
-                             onMarketClick={this.onMarketClick.bind(this)}
                              onOutcomeClick={this.onOutcomeClick.bind(this)}
                     />
                 </div>
                 <div className={css(styles.feedback)}>
                     <Selections outcomes={outcomes} markets={markets} selections={this.state.selections}/>
                     { /* @todo: Add a new component here to show suggested RequestABets based on selected outcomes*/}
-                    { /* See the overview above, but the suggestions should be ordered from most relevant to least and limited to 10 outcomes */}
+                    { /* See the overview in the main entry file, but the suggestions should be ordered from most relevant to least and limited to 10 outcomes */}
                 </div>
             </div>
         )
