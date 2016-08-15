@@ -2,6 +2,7 @@ import React from "react";
 import {StyleSheet, css} from "aphrodite";
 
 //@todo: give selections a greater "call to action"
+//@todo: introduce a way to remove a selection without having to click the original outcome
 export const Selection = ({ outcomeName, marketName, price }) => {
     return <div className={css(styles.selection)} key={`${outcomeName}-${marketName}`}>
         {marketName} - {outcomeName} @<b>{price.num}/{price.den}</b>
