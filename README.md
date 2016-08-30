@@ -1,8 +1,10 @@
-This JavaScript test is intended for all potential SkyBet Software Engineers. JavaScript forms a key part of both our server and client stacks, with many of our key services using Node or React to deliver our customer experience.
+This JavaScript test is intended for potential SkyBet Software Engineers with a focus on JavaScript. JavaScript forms a key part of both our server and client stacks, with many of our key services using Node or React to deliver our customer experience.
 
 There is no outright pass or fail, it is intended to identify the level you are currently at and provide a starting point for further conversations at interview.
 
 Within the code are several `@todo` statements that outline areas to focus on, try and complete these first before going on to any other functionality you think may improve the app.
+
+There are also parts of the code which are sub-optimal and should be refactored. 
 
 ## How to get everything running
 
