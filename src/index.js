@@ -15,7 +15,7 @@ const wrapper = document.getElementById('app');
  * Markets with "Request-A-Bet" in the title consist of outcomes that are linked to standard outcomes (it's less complicated than it sounds!).
  * A Request-A-Bet outcome has a property "baseOutcomeIds" which indicates the original outcomes used to create it.
  *
- * By reducing the view of Markets to just those listed below (the RequestABet whitelist) it is possible to build a set of
+ * By reducing the view of Markets to just those listed in the `App` component (the RequestABet whitelist) it is possible to build a set of
  * selections which can be compared to each of the RequestABet outcomes to see if there is a matching bet.
  *
  * Relevance should be calculated by calculating the intersection of the selections set and the baseOutcomeIds for a RAB outcome.
