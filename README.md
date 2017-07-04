@@ -27,4 +27,8 @@ Tests can be written in whatever framework you choose, however, we recommend usi
 
 Please ensure your work is tracked in git and you are committing regularly so we can see how you worked through the various tasks. Please zip up your repo and send it over accompanied by any work notes you feel will help explain your thinking.
 
+## Assessment Policy
+
+We treat all candidates equally, fairly and without bias.  To that end, we ask that you do not leave any personally identifying information in your submission (such as your name within an author field or file, or in use as test data).  We run all VCS-based submissions through an anonymiser before assessment, so that there is no identifying information in the commit history, but this will only remove references in the committing author and email address, not deep in the code submitted.
+
 Good luck!
