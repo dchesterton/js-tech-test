@@ -22,14 +22,14 @@ const filterInvalidEvents = data => {
     });
 };
 
-const EventList = ({data, ...props}) => {
+const EventList = ({data, showPrimaryMarkets, ...props}) => {
     const events = filterInvalidEvents(data);
 
     return (
         <ul className="list-group">
             {events.map(event => {
-                const primaryMarket = data.markets[event.eventId][0];
-                const outcomes = data.outcomes[primaryMarket.marketId];
+                const primaryMarket = showPrimaryMarkets? data.markets[event.eventId][0]: null;
+                const outcomes = showPrimaryMarkets? data.outcomes[primaryMarket.marketId]: [];
 
                 return <Event event={event} primaryMarket={primaryMarket} outcomes={outcomes} key={event.eventId} {...props} />;
             })}
@@ -39,6 +39,7 @@ const EventList = ({data, ...props}) => {
 
 EventList.propTypes = {
     data: PropTypes.object.isRequired,
+    showPrimaryMarkets: PropTypes.bool.isRequired,
 };
 
 export default EventList;

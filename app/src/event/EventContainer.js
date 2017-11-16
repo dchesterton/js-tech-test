@@ -1,7 +1,7 @@
 import React from 'react';
-import EventList from './EventList';
+import Event from './Event';
 
-class EventsContainer extends React.Component {
+class EventContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -12,7 +12,9 @@ class EventsContainer extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8888/football/live?primaryMarkets=true')
+        const eventId = this.props.match.params.id;
+
+        fetch(`http://localhost:8888/sportsbook/event/${eventId}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(response.statusText);
@@ -40,15 +42,15 @@ class EventsContainer extends React.Component {
         const {status, data} = this.state;
 
         if (status === 'loading') {
-            return <div>Loading events...</div>;
+            return <div>Loading event...</div>;
         }
 
         if (status === 'error') {
-            return <div>There was an error loading the events, please try again</div>;
+            return <div>There was an error loading the event, please try again</div>;
         }
 
-        return <EventList data={data} {...this.props} />;
+        return <Event data={data} {...this.props} />;
     }
 }
 
-export default EventsContainer;
+export default EventContainer;
