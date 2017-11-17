@@ -1,5 +1,6 @@
 import React from 'react';
 import Overview from './Overview';
+import {mergeEventData} from '../util';
 
 class OverviewContainer extends React.Component {
     constructor(props) {
@@ -7,7 +8,7 @@ class OverviewContainer extends React.Component {
 
         this.state = {
             status: 'loading',
-            data: null,
+            events: null,
         };
     }
 
@@ -21,8 +22,10 @@ class OverviewContainer extends React.Component {
             })
             .then(response => response.json())
             .then(data => {
+                const events = data.events.map(event => mergeEventData(event, data.markets, data.outcomes));
+
                 this.setState({
-                    data,
+                    events,
                     status: null,
                 });
             })
@@ -30,14 +33,14 @@ class OverviewContainer extends React.Component {
                 console.error(err);
 
                 this.setState({
-                    data: null,
+                    events: null,
                     status: 'error',
                 });
             });
     }
 
     render() {
-        const {status, data} = this.state;
+        const {status, events} = this.state;
 
         if (status === 'loading') {
             return <div>Loading events...</div>;
@@ -47,7 +50,7 @@ class OverviewContainer extends React.Component {
             return <div>There was an error loading the events, please try again</div>;
         }
 
-        return <Overview data={data} {...this.props} />;
+        return <Overview events={events} {...this.props} />;
     }
 }
 

@@ -14,7 +14,7 @@ class Overview extends React.Component {
     }
 
     render() {
-        const {data} = this.props;
+        const {events} = this.props;
         const {showPrimary} = this.state;
 
         return (
@@ -29,7 +29,7 @@ class Overview extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <EventList data={data} showPrimaryMarkets={showPrimary} />
+                        <EventList events={events} showPrimaryMarkets={showPrimary} />
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@ class Overview extends React.Component {
 }
 
 Overview.propTypes = {
-    data: PropTypes.object.isRequired,
+    events: PropTypes.array.isRequired,
 };
 
 export default Overview;
