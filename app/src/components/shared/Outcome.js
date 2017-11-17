@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Odds from './Odds';
+import Odds from '../../containers/OddsContainer';
 
 const Outcome = ({outcome, ...props}) => (
     <li>

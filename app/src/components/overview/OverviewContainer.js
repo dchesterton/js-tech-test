@@ -1,6 +1,6 @@
 import React from 'react';
 import Overview from './Overview';
-import {mergeEventData} from '../util';
+import {mergeEventData} from '../../util';
 
 class OverviewContainer extends React.Component {
     constructor(props) {

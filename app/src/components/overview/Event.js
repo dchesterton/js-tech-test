@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Market from '../components/Market';
+import Market from '../shared/Market';
 import {Link} from 'react-router-dom';
 
 const Event = ({event, primaryMarket, ...props}) => (

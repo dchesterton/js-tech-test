@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ODDS_FRACTIONAL, ODDS_DECIMAL} from '../constants';
+import {ODDS_FRACTIONAL, ODDS_DECIMAL} from '../../constants';
 
-const Odds = ({price, oddsDisplay}) => {
-    switch (oddsDisplay) {
+const Odds = ({price, display}) => {
+    switch (display) {
     case ODDS_FRACTIONAL:
         return <span>{price.num}/{price.den}</span>;
     case ODDS_DECIMAL:
@@ -15,7 +15,7 @@ const Odds = ({price, oddsDisplay}) => {
 
 Odds.propTypes = {
     price: PropTypes.object.isRequired,
-    oddsDisplay: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
 };
 
 export default Odds;

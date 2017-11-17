@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Market from '../components/Market';
+import Market from '../shared/Market';
 
 const MarketList = ({markets}) => (
     <ul className="list-group">

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Event from './Event';
-import {mergeEventData} from '../util';
+import {mergeEventData} from '../../util';
 
 class EventContainer extends React.Component {
     constructor(props) {

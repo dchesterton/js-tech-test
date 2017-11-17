@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {formatDate} from '../util';
+import {formatDate} from '../../util';
 
 const EventSummary = ({event}) => (
     <div className="text-center">
