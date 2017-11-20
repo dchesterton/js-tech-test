@@ -4,7 +4,7 @@ import {List} from 'immutable';
 
 import Outcome from './Outcome';
 
-const CorrectScore = ({outcomes}) => {
+const CorrectScore = ({outcomes, isMarketSuspended}) => {
     const home = outcomes.filter(outcome => outcome.get('type') === 'home');
     const away = outcomes.filter(outcome => outcome.get('type') === 'away');
     const draw = outcomes.filter(outcome => outcome.get('type') === 'draw');
@@ -16,19 +16,19 @@ const CorrectScore = ({outcomes}) => {
             <div className="row outcome-score">
                 <div className="col-xs-4 outcome-score-item">
                     {home.map(outcome => (
-                        <Outcome key={outcome.get('outcomeId')} outcome={outcome} title={titleForScore(outcome.get('score'))} />
+                        <Outcome key={outcome.get('outcomeId')} outcome={outcome} title={titleForScore(outcome.get('score'))} suspended={isMarketSuspended} />
                     ))}
                 </div>
 
                 <div className="col-xs-4 outcome-score-item">
                     {draw.map(outcome => (
-                        <Outcome key={outcome.get('outcomeId')} outcome={outcome} title={titleForScore(outcome.get('score'))} />
+                        <Outcome key={outcome.get('outcomeId')} outcome={outcome} title={titleForScore(outcome.get('score'))} suspended={isMarketSuspended} />
                     ))}
                 </div>
 
                 <div className="col-xs-4 outcome-score-item">
                     {away.map(outcome => (
-                        <Outcome key={outcome.get('outcomeId')} outcome={outcome} title={titleForScore(outcome.get('score'))} />
+                        <Outcome key={outcome.get('outcomeId')} outcome={outcome} title={titleForScore(outcome.get('score'))} suspended={isMarketSuspended} />
                     ))}
                 </div>
             </div>
@@ -38,6 +38,7 @@ const CorrectScore = ({outcomes}) => {
 
 CorrectScore.propTypes = {
     outcomes: PropTypes.instanceOf(List),
+    isMarketSuspended: PropTypes.bool.isRequired,
 };
 
 export default CorrectScore;

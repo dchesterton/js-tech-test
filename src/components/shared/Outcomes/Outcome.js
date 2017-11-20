@@ -4,8 +4,8 @@ import {Map} from 'immutable';
 
 import Odds from '../OddsContainer';
 
-const Outcome = ({outcome, title}) => {
-    const isSuspended = outcome.get('status').get('suspended');
+const Outcome = ({outcome, title, suspended}) => {
+    const isSuspended = suspended? suspended: outcome.get('status').get('suspended');
 
     let classNames = 'outcome-price-wrapper';
 
@@ -26,6 +26,7 @@ const Outcome = ({outcome, title}) => {
 Outcome.propTypes = {
     outcome: PropTypes.instanceOf(Map).isRequired,
     title: PropTypes.string.isRequired,
+    suspended: PropTypes.bool.isRequired,
 };
 
 export default Outcome;

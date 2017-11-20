@@ -4,12 +4,12 @@ import {List} from 'immutable';
 
 import Outcome from './Outcome';
 
-const Standard = ({outcomes}) => (
+const Standard = ({outcomes, isMarketSuspended}) => (
     <ul className="list-unstyled outcome-standard">
         {outcomes.map(outcome => (
             <li key={outcome.get('outcomeId')} className="outcome-standard-item">
                 <div className="outcome-standard-item-price">
-                    <Outcome outcome={outcome} title="" />
+                    <Outcome outcome={outcome} title="" suspended={isMarketSuspended} />
                 </div>
 
                 <h5 className="outcome-standard-item-name">
@@ -22,6 +22,7 @@ const Standard = ({outcomes}) => (
 
 Standard.propTypes = {
     outcomes: PropTypes.instanceOf(List).isRequired,
+    isMarketSuspended: PropTypes.bool.isRequired,
 };
 
 export default Standard;

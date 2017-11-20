@@ -32,14 +32,15 @@ class OutcomeList extends React.Component {
         }
 
         const marketType = this.props.market.get('type');
+        const isMarketSuspended = this.props.market.get('status').get('suspended');
 
         switch (marketType) {
             case 'win-draw-win':
-                return <WinDrawWin outcomes={outcomes} />;
+                return <WinDrawWin outcomes={outcomes} isMarketSuspended={isMarketSuspended} />;
             case 'correct-score':
-                return <CorrectScore outcomes={outcomes} />;
+                return <CorrectScore outcomes={outcomes} isMarketSuspended={isMarketSuspended} />;
             default:
-                return <Standard outcomes={outcomes} />;
+                return <Standard outcomes={outcomes} isMarketSuspended={isMarketSuspended} />;
         }
     }
 }

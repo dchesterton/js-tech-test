@@ -4,7 +4,7 @@ import {List} from 'immutable';
 
 import Outcome from './Outcome';
 
-const WinDrawWin = ({outcomes}) => (
+const WinDrawWin = ({outcomes, isMarketSuspended}) => (
     <div className="container-fluid">
         <div className="row outcome-score">
             {outcomes.map(outcome => {
@@ -14,7 +14,7 @@ const WinDrawWin = ({outcomes}) => (
 
                 return (
                     <div key={outcome.get('outcomeId')} className={`col-xs-${12 / total} outcome-score-item`}>
-                        <Outcome outcome={outcome} title={title} />
+                        <Outcome outcome={outcome} title={title} suspended={isMarketSuspended} />
                     </div>
                 )
             })}
@@ -24,6 +24,7 @@ const WinDrawWin = ({outcomes}) => (
 
 WinDrawWin.propTypes = {
     outcomes: PropTypes.instanceOf(List),
+    isMarketSuspended: PropTypes.bool.isRequired,
 };
 
 export default WinDrawWin;

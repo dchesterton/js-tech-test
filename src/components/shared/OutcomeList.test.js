@@ -28,13 +28,15 @@ it('renders error', () => {
 it('renders outcomes', () => {
     const outcomes = fromJS([{outcomeId: 1}, {outcomeId: 2}]);
 
-    const standardWrapper = shallow(<OutcomeList market={Map()} fetchMarket={()=>{}} outcomes={outcomes} />);
+    const status = {suspended: true};
+
+    const standardWrapper = shallow(<OutcomeList market={fromJS({status})} fetchMarket={()=>{}} outcomes={outcomes} />);
     expect(standardWrapper.find(Standard)).toHaveLength(1);
 
-    const correctScoreWrapper = shallow(<OutcomeList market={Map({type: 'correct-score'})} fetchMarket={()=>{}} outcomes={outcomes} />);
+    const correctScoreWrapper = shallow(<OutcomeList market={fromJS({status, type: 'correct-score'})} fetchMarket={()=>{}} outcomes={outcomes} />);
     expect(correctScoreWrapper.find(CorrectScore)).toHaveLength(1);
 
-    const winDrawWinWrapper = shallow(<OutcomeList market={Map({type: 'win-draw-win'})} fetchMarket={()=>{}} outcomes={outcomes} />);
+    const winDrawWinWrapper = shallow(<OutcomeList market={fromJS({status, type: 'win-draw-win'})} fetchMarket={()=>{}} outcomes={outcomes} />);
     expect(winDrawWinWrapper.find(WinDrawWin)).toHaveLength(1);
 });
 
