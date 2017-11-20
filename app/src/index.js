@@ -7,9 +7,7 @@ import thunkMiddleware from 'redux-thunk';
 import {createStore, applyMiddleware} from 'redux';
 import app from './reducers';
 import listen from './websocketListener';
-
-export const API_URL = 'http://localhost:8888';
-const WEBSOCKET_URL = 'ws://localhost:8889';
+import {WEBSOCKET_URL} from './constants';
 
 const store = createStore(app, applyMiddleware(thunkMiddleware));
 

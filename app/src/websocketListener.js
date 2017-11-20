@@ -7,7 +7,6 @@ const listen = (websocketUrl, dispatch) => {
         const message = JSON.parse(m.data);
 
         if (typeof message === 'object') {
-            //console.log(message);
             dispatch(message);
         }
     });

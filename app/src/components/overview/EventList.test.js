@@ -6,20 +6,16 @@ import EventList from './EventList';
 import Event from './Event';
 
 it('renders without crashing', () => {
-    shallow(<EventList events={List()} markets={Map()} showPrimaryMarkets={true} />);
+    shallow(<EventList events={[]} markets={Map()} showPrimaryMarkets={true} />);
 });
 
 it('does not render markets when showPrimaryMarkets is false', () => {
     const event1 = Map({eventId: 10});
-    const event1market = Map({marketId: 20});
-
     const event2 = Map({eventId: 11});
-    const event2market = Map({marketId: 21});
 
-    const events = List([event1, event2]);
-    const markets = Map({[event1.get('eventId')]: List([event1market]), [event2.get('eventId')]: List([event2market])});
+    const events = [event1, event2];
 
-    const wrapper = shallow(<EventList events={events} markets={markets} showPrimaryMarkets={false} />);
+    const wrapper = shallow(<EventList events={events} markets={Map()} showPrimaryMarkets={false} />);
 
     const reactEvent1 = <Event event={event1} primaryMarket={null} />;
     const reactEvent2 = <Event event={event2} primaryMarket={null} />;
@@ -36,7 +32,7 @@ it('renders events', () => {
     const event2 = Map({eventId: 11});
     const event2market = Map({marketId: 21});
 
-    const events = List([event1, event2]);
+    const events = [event1, event2];
     const markets = Map({[event1.get('eventId')]: List([event1market]), [event2.get('eventId')]: List([event2market])});
 
     const wrapper = shallow(<EventList events={events} markets={markets} showPrimaryMarkets={true} />);

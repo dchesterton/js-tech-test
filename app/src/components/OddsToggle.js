@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {ODDS_FRACTIONAL, ODDS_DECIMAL} from '../actions/odds';
+import {ODDS_FRACTIONAL, ODDS_DECIMAL} from '../constants';
 
 const OddsToggle = ({display, onChange}) => (
     <div className="btn-group pull-right">

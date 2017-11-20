@@ -14,12 +14,12 @@ const setStatus = (statuses, key, val) => {
 }
 
 const data = (state = {
-    statuses: {},
+    statuses: {},      // track the current status of requests
     fetchedAll: false, // track whether we have fetched the full events list
     fetchedFull: [],   // track those events which we have fetched in full
-    events: List(),
-    markets: Map(),
-    outcomes: Map(),
+    events: List(),    // store events data
+    markets: Map(),    // store markets data, indexed by eventId
+    outcomes: Map(),   // store outcomes data, indexed by marketId
 }, action) => {
     switch (action.type) {
         case 'REQUEST_EVENTS':
@@ -93,16 +93,14 @@ const data = (state = {
 
         case 'PRICE_CHANGE':
         case 'OUTCOME_STATUS':
-            const outcomeId = action.data.outcomeId;
             const marketIdString = action.data.marketId.toString();
-
             const marketOutcomes = state.outcomes.get(marketIdString);
 
             if (!marketOutcomes) {
                 return state;
             }
 
-            const outcomesIdx = marketOutcomes.findIndex(outcome => outcome.get('outcomeId') === outcomeId);
+            const outcomesIdx = marketOutcomes.findIndex(outcome => outcome.get('outcomeId') === action.data.outcomeId);
 
             if (outcomesIdx < 0) {
                 return state;
@@ -119,9 +117,7 @@ const data = (state = {
 
             console.log('Updating outcome ' + outcome.get('name')  + ', for market ' + market.get('name') + ', for ' + event.get('name'), action.data.price);
 
-            return Object.assign({}, state, {
-                outcomes
-            });
+            return Object.assign({}, state, {outcomes});
 
         default:
             return state;

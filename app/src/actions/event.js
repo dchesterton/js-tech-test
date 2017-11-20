@@ -1,24 +1,15 @@
-import {API_URL} from '../index';
+import {API_URL} from '../constants';
 
 function requestEvent(eventId) {
-    return {
-        type: 'REQUEST_EVENT',
-        eventId,
-    }
+    return {type: 'REQUEST_EVENT', eventId};
 }
 
 function receiveEvent(data) {
-    return {
-        type: 'RECEIVE_EVENT',
-        data,
-    };
+    return {type: 'RECEIVE_EVENT', data};
 }
 
 function receiveEventError(eventId) {
-    return {
-        type: 'RECEIVE_EVENT_ERROR',
-        eventId,
-    };
+    return {type: 'RECEIVE_EVENT_ERROR', eventId};
 }
 
 function fetchEvent(eventId) {

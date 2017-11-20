@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Map, List} from 'immutable';
 
-import EventList from './EventList';
+import EventGroup from './EventGroup';
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
 
@@ -21,6 +21,22 @@ class Overview extends React.Component {
         this.setState({showPrimary: !this.state.showPrimary});
     }
 
+    groupEvents(events) {
+        const groupedEvents = {};
+
+        events.forEach(event => {
+            const typeName = event.get('linkedEventTypeName') || event.get('typeName');
+
+            if (!(typeName in groupedEvents)) {
+                groupedEvents[typeName] = [];
+            }
+
+            groupedEvents[typeName].push(event);
+        });
+
+        return groupedEvents;
+    }
+
     render() {
         const {events, markets, status} = this.props;
 
@@ -34,6 +50,13 @@ class Overview extends React.Component {
 
         const {showPrimary} = this.state;
 
+        const groupedEvents = this.groupEvents(events);
+        const eventGroups = [];
+
+        for (let title in groupedEvents) {
+            eventGroups.push(<EventGroup key={title} title={title} events={groupedEvents[title]} markets={markets} showPrimaryMarkets={showPrimary} />);
+        }
+
         return (
             <div>
                 <div className="row" style={{marginTop: '10px', marginBottom: '15px'}}>
@@ -46,7 +69,7 @@ class Overview extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <EventList events={events} markets={markets} showPrimaryMarkets={showPrimary} />
+                        {eventGroups}
                     </div>
                 </div>
             </div>

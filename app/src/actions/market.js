@@ -1,24 +1,15 @@
-import {API_URL} from '../index';
+import {API_URL} from '../constants';
 
 function requestMarket(marketId) {
-    return {
-        type: 'REQUEST_MARKET',
-        marketId,
-    }
+    return {type: 'REQUEST_MARKET', marketId};
 }
 
 function receiveMarket(data) {
-    return {
-        type: 'RECEIVE_MARKET',
-        data,
-    };
+    return {type: 'RECEIVE_MARKET', data};
 }
 
 function receiveMarketError(marketId) {
-    return {
-        type: 'RECEIVE_MARKET_ERROR',
-        marketId,
-    };
+    return {type: 'RECEIVE_MARKET_ERROR', marketId};
 }
 
 export function fetchMarket(marketId) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ODDS_FRACTIONAL, ODDS_DECIMAL} from '../../actions/odds';
+import {ODDS_FRACTIONAL, ODDS_DECIMAL} from '../../constants';
 
 const Odds = ({price, display}) => {
     switch (display) {

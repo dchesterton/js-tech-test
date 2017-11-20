@@ -31,4 +31,6 @@ App.propTypes = {
     store: PropTypes.object.isRequired
 }
 
+export const API_URL = 'http://localhost:8888';
+
 export default App;
