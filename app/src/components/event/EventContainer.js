@@ -1,62 +1,25 @@
-import React from 'react';
-
+import {connect} from 'react-redux';
 import Event from './Event';
-import {mergeEventData} from '../../util';
+import {fetchEventIfNeeded} from '../../actions/event';
 
-class EventContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const mapStateToProps = ({data}, ownProps) => {
+    const eventId = parseInt(ownProps.match.params.id, 10);
 
-        this.state = {
-            status: 'loading',
-            event: null,
-        };
-    }
+    const event = data.events.find(event => event.get('eventId') === eventId);
+    const markets = data.markets.get(eventId.toString());
 
-    componentDidMount() {
-        const eventId = this.props.match.params.id;
+    return {event, markets, status: data.statuses[`event_${eventId}`]};
+};
 
-        fetch(`http://localhost:8888/sportsbook/event/${eventId}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(response.statusText);
-                }
-                return response;
-            })
-            .then(response => response.json())
-            .then(data => {
-                const event = mergeEventData(data.event, data.markets, data.outcomes);
-
-                this.setState({
-                    event,
-                    status: null,
-                });
-            })
-            .catch(err => {
-                console.error(err);
-
-                this.setState({
-                    event: null,
-                    status: 'error',
-                });
-            });
-    }
-
-    render() {
-        const {status, event} = this.state;
-
-        if (status === 'loading') {
-            return <div>Loading event...</div>;
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchEvent: eventId => {
+            dispatch(fetchEventIfNeeded(eventId));
         }
-
-        if (status === 'error') {
-            return <div>There was an error loading the event, please try again</div>;
-        }
-
-        console.log(event);
-
-        return <Event event={event} {...this.props} />;
-    }
+    };
 }
 
-export default EventContainer;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Event)

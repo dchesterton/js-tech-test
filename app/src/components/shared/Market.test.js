@@ -1,32 +1,44 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {shallow} from 'enzyme';
 
+import {Map} from 'immutable';
+
 import Market from './Market';
-import Outcome from './Outcome';
+import OutcomeListContainer from './OutcomeListContainer';
 
 it('renders without crashing', () => {
-    shallow(<Market market={{}} outcomes={[]} />);
+    shallow(<Market market={Map()} />);
 });
 
 it('renders name', () => {
-    const market = {name: 'Market Name'};
-    const wrapper = shallow(<Market market={market} outcomes={[]} />);
+    const name = 'Market Name';
+    const market = Map({name});
+    const wrapper = shallow(<Market market={market} />);
 
-    expect(wrapper).toIncludeText(market.name);
+    expect(wrapper).toIncludeText(name);
 });
 
-it('renders outcomes', () => {
-    const outcome1 = {outcomeId: 1, price: {}};
-    const outcome2 = {outcomeId: 2, price: {}};
+it('renders outcomes when showOutcomes prop is true', () => {
+    const wrapper = shallow(<Market market={Map()} showOutcomes={true} />);
+    expect(wrapper.find(OutcomeListContainer)).toHaveLength(1);
+});
 
-    const wrapper = shallow(<Market market={{}} outcomes={[outcome1, outcome2]} oddsDisplay="fractional" />);
+it('does not render outcomes when showOutcomes prop is false', () => {
+    const wrapper = shallow(<Market market={Map()} showOutcomes={false} />);
 
-    expect(wrapper.find(Outcome)).toHaveLength(2);
+    expect(wrapper.find(OutcomeListContainer)).toHaveLength(0);
+});
 
-    const reactOutcome1 = <Outcome outcome={outcome1} oddsDisplay="fractional" />;
-    const reactOutcome2 = <Outcome outcome={outcome2} oddsDisplay="fractional" />;
+it('toggles outcomes on click', () => {
+    const wrapper = shallow(<Market market={Map()} />);
 
-    expect(wrapper).toContainReact(reactOutcome1);
-    expect(wrapper).toContainReact(reactOutcome2);
+    const title = wrapper.find('h5');
+
+    // test that a click shows the outcomes
+    title.simulate('click');
+    expect(wrapper.find(OutcomeListContainer)).toHaveLength(1);
+
+    // ... and that another click hides it again
+    title.simulate('click');
+    expect(wrapper.find(OutcomeListContainer)).toHaveLength(0);
 });

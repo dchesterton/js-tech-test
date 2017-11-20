@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Map} from 'immutable';
 
 import {formatDate} from '../../util';
 
 const EventSummary = ({event}) => (
-    <div className="text-center">
+    <div className="text-center" style={{margin: '20px 0'}}>
         <h4>
-            {event.name}<br />
+            {event.get('name')}<br />
             <small>
-                {event.linkedEventTypeName? event.linkedEventTypeName: event.typeName}. {formatDate(event.startTime)}
+                {event.get('linkedEventTypeName')? event.get('linkedEventTypeName'): event.get('typeName')}. {formatDate(event.get('startTime'))}
             </small>
         </h4>
     </div>
 );
 
 EventSummary.propTypes = {
-    event: PropTypes.object.isRequired,
+    event: PropTypes.instanceOf(Map).isRequired,
 };
 
 export default EventSummary;

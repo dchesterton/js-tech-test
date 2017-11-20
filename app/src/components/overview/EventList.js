@@ -1,21 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Map, List} from 'immutable';
 
 import Event from './Event';
 
-const EventList = ({events, showPrimaryMarkets, ...props}) => {
+const EventList = ({events, markets, showPrimaryMarkets}) => {
     return (
         <ul className="list-group">
-            {events.map(event => {
-                const primaryMarket = showPrimaryMarkets? event.markets[0]: null;
-                return <Event event={event} primaryMarket={primaryMarket} key={event.eventId} {...props} />;
+            {events.valueSeq().map(event => {
+                const eventId = event.get('eventId');
+                const primaryMarket = showPrimaryMarkets? markets.get(eventId.toString()).get(0): null;
+
+                return <Event event={event} primaryMarket={primaryMarket} key={eventId} />;
             })}
         </ul>
     );
 };
 
 EventList.propTypes = {
-    events: PropTypes.array.isRequired,
+    events: PropTypes.instanceOf(List).isRequired,
+    markets: PropTypes.instanceOf(Map).isRequired,
     showPrimaryMarkets: PropTypes.bool.isRequired,
 };
 

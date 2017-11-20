@@ -1,26 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Map} from 'immutable';
 
-import Outcome from './Outcome';
+import OutcomeListContainer from './OutcomeListContainer';
 
 class Market extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showingOutcomes: props.showOutcomes || false,
-            loadingOutcomes: false,
+            showingOutcomes: props.showOutcomes || false
         };
     }
 
     toggleOutcomes() {
-        if (!this.state.showingOutcomes) {
-            if (!this.props.market.outcomes.length) {
-                this.setState({
-                    loadingOutcomes: true,
-                });
-            }
-        }
-
         this.setState({
             showingOutcomes: !this.state.showingOutcomes
         });
@@ -28,18 +20,16 @@ class Market extends React.Component {
 
     render() {
         const {market} = this.props;
-        const {showingOutcomes, loadingOutcomes} = this.state;
+        const {showingOutcomes} = this.state;
 
         return (
             <div>
-                <div onClick={this.toggleOutcomes.bind(this)}><strong>{market.name}</strong></div>
+                <h5 onClick={this.toggleOutcomes.bind(this)}>
+                    <strong>{market.get('name')}</strong>
+                </h5>
 
-                {loadingOutcomes?
-                    <div>Loading...</div>
-                :showingOutcomes?
-                    <ul className="list-unstyled">
-                        {market.outcomes.map(outcome => <Outcome outcome={outcome} key={outcome.outcomeId} />)}
-                    </ul>
+                {showingOutcomes?
+                    <OutcomeListContainer market={market} />
                 : null}
             </div>
         )
@@ -47,7 +37,7 @@ class Market extends React.Component {
 }
 
 Market.propTypes = {
-    market: PropTypes.object.isRequired,
+    market: PropTypes.instanceOf(Map).isRequired,
     showOutcomes: PropTypes.bool,
 };
 

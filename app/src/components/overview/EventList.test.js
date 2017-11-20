@@ -1,33 +1,28 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {shallow} from 'enzyme';
+import {Map, List, fromJS} from 'immutable';
 
 import EventList from './EventList';
 import Event from './Event';
 
 it('renders without crashing', () => {
-    shallow(<EventList data={{events: []}} showPrimaryMarkets={true} />);
+    shallow(<EventList events={List()} markets={Map()} showPrimaryMarkets={true} />);
 });
 
 it('does not render markets when showPrimaryMarkets is false', () => {
-    const event1 = {eventId: 10};
-    const event1market = {marketId: 20};
-    const event1marketOutcomes = [{outcomeId: 30}];
+    const event1 = Map({eventId: 10});
+    const event1market = Map({marketId: 20});
 
-    const event2 = {eventId: 11};
-    const event2market = {marketId: 21};
-    const event2marketOutcomes = [{outcomeId: 31}];
+    const event2 = Map({eventId: 11});
+    const event2market = Map({marketId: 21});
 
-    const data = {
-        events: [event1, event2],
-        markets: {[event1.eventId]: [event1market], [event2.eventId]: [event2market]},
-        outcomes: {[event1market.marketId]: event1marketOutcomes, [event2market.marketId]: event2marketOutcomes},
-    };
+    const events = List([event1, event2]);
+    const markets = Map({[event1.get('eventId')]: List([event1market]), [event2.get('eventId')]: List([event2market])});
 
-    const wrapper = shallow(<EventList data={data} showPrimaryMarkets={false} />);
+    const wrapper = shallow(<EventList events={events} markets={markets} showPrimaryMarkets={false} />);
 
-    const reactEvent1 = <Event event={event1} primaryMarket={null} outcomes={[]} />;
-    const reactEvent2 = <Event event={event2} primaryMarket={null} outcomes={[]} />;
+    const reactEvent1 = <Event event={event1} primaryMarket={null} />;
+    const reactEvent2 = <Event event={event2} primaryMarket={null} />;
 
     expect(wrapper.find(Event)).toHaveLength(2);
     expect(wrapper).toContainReact(reactEvent1);
@@ -35,43 +30,18 @@ it('does not render markets when showPrimaryMarkets is false', () => {
 });
 
 it('renders events', () => {
-    const event1 = {eventId: 10};
-    const event1market = {marketId: 20};
-    const event1marketOutcomes = [{outcomeId: 30}];
+    const event1 = Map({eventId: 10});
+    const event1market = Map({marketId: 20});
 
-    const event2 = {eventId: 11};
-    const event2market = {marketId: 21};
-    const event2marketOutcomes = [{outcomeId: 31}];
+    const event2 = Map({eventId: 11});
+    const event2market = Map({marketId: 21});
 
-    const data = {
-        events: [event1, event2],
-        markets: {[event1.eventId]: [event1market], [event2.eventId]: [event2market]},
-        outcomes: {[event1market.marketId]: event1marketOutcomes, [event2market.marketId]: event2marketOutcomes},
-    };
+    const events = List([event1, event2]);
+    const markets = Map({[event1.get('eventId')]: List([event1market]), [event2.get('eventId')]: List([event2market])});
 
-    const wrapper = shallow(<EventList data={data} showPrimaryMarkets={true} />);
-
-    const reactEvent1 = <Event event={event1} primaryMarket={event1market} outcomes={event1marketOutcomes} />;
-    const reactEvent2 = <Event event={event2} primaryMarket={event2market} outcomes={event2marketOutcomes} />;
+    const wrapper = shallow(<EventList events={events} markets={markets} showPrimaryMarkets={true} />);
 
     expect(wrapper.find(Event)).toHaveLength(2);
-    expect(wrapper).toContainReact(reactEvent1);
-    expect(wrapper).toContainReact(reactEvent2);
-});
-
-it('ignores events which do not have a market or outcome', () => {
-    const event1 = {eventId: 10};
-    const event1market = {marketId: 20};
-
-    const event2 = {eventId: 11};
-
-    const data = {
-        events: [event1, event2],
-        markets: {10: [event1market]},
-        outcomes: {},
-    };
-
-    const wrapper = shallow(<EventList data={data} showPrimaryMarkets={true} />);
-
-    expect(wrapper.find(Event)).toHaveLength(0);
+    expect(wrapper).toContainReact(<Event event={event1} primaryMarket={event1market} />);
+    expect(wrapper).toContainReact(<Event event={event2} primaryMarket={event2market} />);
 });

@@ -1,19 +1,33 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {shallow} from 'enzyme';
+import {Map} from 'immutable';
 
 import Event from './Event';
-import Market from './Market';
+import Market from '../shared/Market';
 
 it('renders without crashing', () => {
-    shallow(<Event event={{}} primaryMarket={{}} outcomes={[]} />);
+    shallow(<Event event={Map()} />);
 });
 
 it('renders event name', () => {
-    const event = {name: 'Event Name'};
-    const wrapper = shallow(<Event event={event} primaryMarket={{}} outcomes={[]} />);
+    const name = 'Event Name';
+    const event = Map({name});
+    const wrapper = shallow(<Event event={event} />);
 
-    const expected = <h5>{event.name}</h5>;
+    const expected = <h5>{name}</h5>;
 
     expect(wrapper).toContainReact(expected);
+});
+
+it('renders primary market', () => {
+    const event = Map();
+    const primaryMarket = Map();
+    const wrapper = shallow(<Event event={event} primaryMarket={primaryMarket} />);
+
+    expect(wrapper).toContainReact(<Market market={primaryMarket} showOutcomes={true} />);
+});
+
+it('does not render primary market when null', () => {
+    const wrapper = shallow(<Event event={Map()} />);
+    expect(wrapper.find(Market)).toHaveLength(0);
 });

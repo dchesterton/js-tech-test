@@ -1,12 +1,14 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import AppWrapper from './components/App';
+import App from './components/App';
 
-import {Provider} from 'react-redux'
-import {createStore} from 'redux'
+import thunkMiddleware from 'redux-thunk';
+import {createStore, applyMiddleware} from 'redux';
 import app from './reducers';
 
-const store = createStore(app);
+export const API_URL = 'http://localhost:8888';
 
-render(<Provider store={store}><AppWrapper /></Provider>, document.getElementById('root'));
+const store = createStore(app, applyMiddleware(thunkMiddleware));
+
+render(<App store={store} />, document.getElementById('root'));

@@ -1,31 +1,28 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {shallow} from 'enzyme';
+import {fromJS} from 'immutable';
 
 import Outcome from './Outcome';
-import Odds from './Odds';
+import OddsContainer from './OddsContainer';
 
 it('renders without crashing', () => {
-    shallow(<Outcome outcome={{price: {}}} oddsDisplay="" />);
+    shallow(<Outcome outcome={fromJS({price: {}})} />);
 });
 
 it('renders name', () => {
-    const outcome = {name: 'Outcome Name', price: {}};
+    const name = 'Outcome Name';
+    const outcome = fromJS({name: name, price: {}});
 
-    const wrapper = shallow(<Outcome outcome={outcome} oddsDisplay="fractional" />);
+    const wrapper = shallow(<Outcome outcome={outcome} />);
 
-    expect(wrapper).toIncludeText(outcome.name);
+    expect(wrapper).toIncludeText(name);
 });
 
 it('renders odds', () => {
-    const oddsDisplay = "decimal";
     const price = {decimal: 1.1};
     const outcome = {name: 'Name', price};
 
-    const wrapper = shallow(<Outcome outcome={outcome} oddsDisplay={oddsDisplay} />);
+    const wrapper = shallow(<Outcome outcome={fromJS(outcome)} />);
 
-    const odds = <Odds price={price} oddsDisplay={oddsDisplay} />;
-
-    expect(wrapper.find(Odds)).toHaveLength(1);
-    expect(wrapper).toContainReact(odds);
+    expect(wrapper.find(OddsContainer)).toHaveLength(1);
 });

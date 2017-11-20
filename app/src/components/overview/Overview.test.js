@@ -1,21 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {shallow} from 'enzyme';
+import {Map, List} from 'immutable';
 
 import Overview from './Overview';
 import EventList from './EventList';
 
 it('renders without crashing', () => {
-    shallow(<Overview data={{}} />);
+    shallow(<Overview events={List()} markets={Map()} fetchEvents={()=>{}} />);
 });
 
 it('toggles markets on checkbox change', () => {
-    const data = {events: []};
+    const events = List();
+    const markets = Map();
 
-    const showingPrimary = <EventList data={data} showPrimaryMarkets={true} />;
-    const hidingPrimary = <EventList data={data} showPrimaryMarkets={false} />;
+    const showingPrimary = <EventList events={events} markets={markets} showPrimaryMarkets={true} />;
+    const hidingPrimary = <EventList events={events} markets={markets} showPrimaryMarkets={false} />;
 
-    const wrapper = shallow(<Overview data={data} />);
+    const wrapper = shallow(<Overview events={events} markets={markets} fetchEvents={()=>{}} />);
     const checkbox = wrapper.find('input');
 
     // check markets are not shown on initial render

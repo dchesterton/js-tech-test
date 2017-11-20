@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Map} from 'immutable';
 
-import Odds from '../../containers/OddsContainer';
+import Odds from './OddsContainer';
 
-const Outcome = ({outcome, ...props}) => (
+const Outcome = ({outcome}) => (
     <li>
-        {outcome.name}
+        {outcome.get('name')}
 
         <div className="pull-right">
-            <Odds price={outcome.price} {...props} />
+            <Odds price={outcome.get('price').toJS()} />
         </div>
     </li>
 );
 
 Outcome.propTypes = {
-    outcome: PropTypes.object.isRequired,
+    outcome: PropTypes.instanceOf(Map).isRequired,
 };
 
 export default Outcome;

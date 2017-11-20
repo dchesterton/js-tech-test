@@ -1,8 +1,9 @@
-import {combineReducers} from 'redux'
-import oddsDisplay from './oddsDisplay'
+import {combineReducers} from 'redux';
+import odds from './odds';
+import data from './data';
 
 const app = combineReducers({
-    oddsDisplay
-})
+    odds, data
+});
 
 export default app;

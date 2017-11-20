@@ -1,11 +1,15 @@
 import {connect} from 'react-redux';
-import Overview from './Overview';
+import EventSelector from './EventSelector';
 import {fetchEventsIfNeeded} from '../../actions/events';
 
-const mapStateToProps = ({data}) => {
+const mapStateToProps = ({data}, ownProps) => {
+    // filter out the current event
+    const eventsData = data.events.filter(event => {
+        return event.get('eventId') !== ownProps.current;
+    });
+
     return {
-        events: data.events,
-        markets: data.markets,
+        events: eventsData,
         status: data.statuses['all'],
     };
 };
@@ -21,4 +25,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Overview)
+)(EventSelector)

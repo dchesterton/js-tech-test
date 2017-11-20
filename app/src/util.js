@@ -1,21 +1,15 @@
-export function mergeEventData(event, markets, outcomes) {
-    const eventMarkets = markets[event.eventId];
-
-    eventMarkets.forEach(market => {
-        let eventOutcomes = outcomes[market.marketId];
-
-        if (typeof eventOutcomes === 'undefined') {
-            eventOutcomes = [];
+export function formatDate(dateString) {
+    const pad = val => {
+        if (val < 10) {
+            return '0' + val;
         }
 
-        market.outcomes = eventOutcomes;
-    });
+        return val;
+    }
 
-    return Object.assign({}, event, {markets: eventMarkets});
-}
-
-export function formatDate(dateString) {
-    const date = new Date(dateString);
+    // convert to UTC date
+    let date = new Date(dateString);
+    date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());;
 
     const monthNames = [
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -29,5 +23,5 @@ export function formatDate(dateString) {
     const hours = date.getHours();
     const minutes = date.getMinutes();
 
-    return `${day} ${month} ${year}, ${hours}:${minutes}`;
+    return `${day} ${month} ${year}, ${pad(hours)}:${pad(minutes)}`;
 }
