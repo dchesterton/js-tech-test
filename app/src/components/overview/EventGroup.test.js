@@ -13,7 +13,7 @@ it('renders group title', () => {
     const title = 'Group Title';
     const wrapper = shallow(<EventGroup title={title} events={[]} markets={Map()} showPrimaryMarkets={true} />);
 
-    expect(wrapper).toContainReact(<h4>{title}</h4>);
+    expect(wrapper).toContainReact(<h3>{title}</h3>);
 });
 
 it('renders event list', () => {

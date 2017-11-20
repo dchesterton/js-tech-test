@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {List, Map} from 'immutable';
 
-import Outcome from './Outcome';
-
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
+
+import CorrectScore from './Outcomes/CorrectScore';
+import WinDrawWin from './Outcomes/WinDrawWin';
+import Standard from './Outcomes/Standard';
 
 class OutcomeList extends React.Component {
     componentWillMount() {
@@ -25,11 +27,20 @@ class OutcomeList extends React.Component {
             return <Error>Error loading market, please try again.</Error>;
         }
 
-        return outcomes? (
-            <ul className="list-unstyled">
-                {outcomes.map(outcome => <Outcome outcome={outcome} key={outcome.get('outcomeId')} />)}
-            </ul>
-        ): null;
+        if (!outcomes) {
+            return null;
+        }
+
+        const marketType = this.props.market.get('type');
+
+        switch (marketType) {
+            case 'win-draw-win':
+                return <WinDrawWin outcomes={outcomes} />;
+            case 'correct-score':
+                return <CorrectScore outcomes={outcomes} />;
+            default:
+                return <Standard outcomes={outcomes} />;
+        }
     }
 }
 

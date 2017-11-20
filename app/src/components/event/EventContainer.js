@@ -8,7 +8,7 @@ const mapStateToProps = ({data}, ownProps) => {
     const event = data.events.find(event => event.get('eventId') === eventId);
     const markets = data.markets.get(eventId.toString());
 
-    return {event, markets, status: data.statuses[`event_${eventId}`]};
+    return {eventId: eventId, event, markets, status: data.statuses[`event_${eventId}`]};
 };
 
 const mapDispatchToProps = dispatch => {

@@ -10,14 +10,14 @@ it('renders without crashing', () => {
 });
 
 it('renders fractional odds', () => {
-    const expected = <span>1/10</span>;
+    const expected = <span className="outcome-price">1/10</span>;
     const wrapper = shallow(<Odds display="fractional" price={price} />);
 
     expect(wrapper).toContainReact(expected);
 });
 
 it('renders decimal odds', () => {
-    const expected = <span>1.115</span>;
+    const expected = <span className="outcome-price">1.115</span>;
     const wrapper = shallow(<Odds display="decimal" price={price} />);
 
     expect(wrapper).toMatchElement(expected);

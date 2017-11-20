@@ -1,0 +1,104 @@
+
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1) rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+
+.outcome-price {
+    font-weight: bold;
+    color: rgb(185, 6, 6);
+}
+
+.outcome-price-wrapper {
+    background-color: rgb(234, 237, 241);
+    text-align: center;
+}
+
+.outcome-price-wrapper-suspended {
+    background-color: #CCC;
+    text-align: center;
+    color: #777;
+}
+
+.outcome-score {
+    border: 1px solid #CCC;
+    border-top: 0;
+}
+
+.outcome-score-item {
+    border-right: 1px solid #CCC;
+    line-height: 40px;
+    padding: 0;
+}
+
+.outcome-score-item:last-child {
+    border-right: 0;
+}
+
+.outcome-standard-item {
+    border: 1px solid #CCC;
+    border-bottom: 0;
+    line-height: 40px;
+}
+
+.outcome-standard-item-price {
+    float: right;
+    width: 25%;
+}
+
+.outcome-standard-item-name {
+    line-height: 40px;
+    margin: 0;
+    padding-left: 15px;
+}
+
+.outcome-standard-item:last-child {
+    border-bottom: 1px solid #CCC;
+}
+
+.collapsible-item {
+    border-radius: 4px;
+    margin-bottom: 9px;
+}
+
+.collapsible-item h5 {
+    margin: 0;
+}
+
+.collapsible-item > h5 > a {
+    padding: 12px 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #000;
+    display: block;
+    background-color: #DCE3ED;
+}
+
+.collapsible-item > h5 > a:hover {
+    text-decoration: none;
+}
+
+.collapsible-item > h5 > a:hover {
+    background-color: rgb(134, 165, 209)
+}
+
+.collapsible-item-open > h5 > a {
+    background-color: #132C6C;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    color: #FFF;
+}
+
+.collapsible-item-open > h5 > a:hover {
+    color: #000;
+}

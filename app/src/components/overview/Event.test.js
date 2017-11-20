@@ -1,6 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 import {Map} from 'immutable';
+import {Link} from 'react-router-dom';
 
 import Event from './Event';
 import Market from '../shared/Market';
@@ -9,14 +10,16 @@ it('renders without crashing', () => {
     shallow(<Event event={Map()} />);
 });
 
-it('renders event name', () => {
+it('renders event link', () => {
     const name = 'Event Name';
-    const event = Map({name});
-    const wrapper = shallow(<Event event={event} />);
+    const eventId = 1;
+    const event = Map({eventId: eventId, name: name});
 
-    const expected = <h5>{name}</h5>;
+    const link = shallow(<Event event={event} />).find(Link);
 
-    expect(wrapper).toContainReact(expected);
+    expect(link).toHaveLength(1);
+    expect(link).toHaveProp('to', '/event/1');
+    expect(link).toHaveProp('children', name);
 });
 
 it('renders primary market', () => {

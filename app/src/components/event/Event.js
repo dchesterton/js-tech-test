@@ -8,6 +8,7 @@ import MarketList from './MarketList';
 
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
+import Header from '../Header';
 
 class Event extends React.Component {
     componentWillMount() {
@@ -29,19 +30,23 @@ class Event extends React.Component {
     }
 
     render() {
-        const {event, markets, status} = this.props;
+        const {eventId, event, markets, status} = this.props;
 
         return (
-            <div className="row" style={{marginTop: '10px', marginBottom: '15px'}}>
-                <div className="col-md-12">
-                    {status === 'loading'? <Loading />:
-                        status === 'error'? <Error>There was an error loading the event, please try again</Error>:
-                        event? <div>
+            <div>
+                <Header />
+                <div className="row" style={{marginTop: '10px', marginBottom: '15px'}}>
+                    <div className="col-md-12">
+                        <EventSelectorContainer current={eventId} onChange={this.change.bind(this)} />
 
-                        <EventSelectorContainer current={event.get('eventId')} onChange={this.change.bind(this)} />
-                        <EventSummary event={event} />
-                        <MarketList markets={markets} />
-                    </div>: null}
+                        {status === 'loading'? <Loading />:
+                            status === 'error'? <Error>There was an error loading the event, please try again</Error>:
+                            event? <div>
+                                <EventSummary event={event} />
+                                <MarketList markets={markets} />
+                            </div>
+                        : null}
+                    </div>
                 </div>
             </div>
         );

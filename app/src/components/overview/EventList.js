@@ -5,7 +5,7 @@ import {Map} from 'immutable';
 import Event from './Event';
 
 const EventList = ({events, markets, showPrimaryMarkets}) => (
-    <ul className="list-group">
+    <ul className="list-unstyled">
         {events.map(event => {
             const eventId = event.get('eventId');
             const primaryMarket = showPrimaryMarkets? markets.get(eventId.toString()).get(0): null;

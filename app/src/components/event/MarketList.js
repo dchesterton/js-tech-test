@@ -5,10 +5,10 @@ import {List} from 'immutable';
 import Market from '../shared/Market';
 
 const MarketList = ({markets}) => (
-    <ul className="list-group">
+    <ul className="list-unstyled">
         {markets.map(market =>
-            <li className="list-group-item" key={market.get('marketId')}>
-                <Market market={market} />
+            <li key={market.get('marketId')}>
+                <Market market={market} showName={true} />
             </li>
         )}
     </ul>

@@ -6,13 +6,23 @@ import Market from '../shared/Market';
 import {Link} from 'react-router-dom';
 
 const Event = ({event, primaryMarket}) => (
-    <li className="list-group-item">
-        <Link className="btn btn-sm btn-primary pull-right" to={`/event/${event.get('eventId')}`}>View</Link>
-
-        <h5>{event.get('name')}</h5>
+    <li className={classNames(primaryMarket)}>
+        <h5>
+            <Link to={`/event/${event.get('eventId')}`}>{event.get('name')}</Link>
+        </h5>
         {primaryMarket? <Market market={primaryMarket} showOutcomes={true} />: null}
     </li>
-)
+);
+
+const classNames = primaryMarket => {
+    let classNames = 'collapsible-item';
+
+    if (primaryMarket) {
+        classNames += ' collapsible-item-open';
+    }
+
+    return classNames;
+};
 
 Event.propTypes = {
     event: PropTypes.instanceOf(Map).isRequired,

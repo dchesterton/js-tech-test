@@ -6,6 +6,7 @@ import {Map, List} from 'immutable';
 import EventGroup from './EventGroup';
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
+import Header from '../Header';
 
 class Overview extends React.Component {
     constructor(props) {
@@ -59,14 +60,13 @@ class Overview extends React.Component {
 
         return (
             <div>
-                <div className="row" style={{marginTop: '10px', marginBottom: '15px'}}>
-                    <div className="col-md-12">
-                        <label>
-                            <input type="checkbox" checked={showPrimary} onChange={this.togglePrimary.bind(this)} />
-                            &nbsp;&nbsp; Show primary market?
-                        </label>
-                    </div>
-                </div>
+                <Header>
+                    <label>
+                        <input type="checkbox" checked={showPrimary} onChange={this.togglePrimary.bind(this)} />
+                        &nbsp; Show primary markets?
+                    </label>
+                </Header>
+
                 <div className="row">
                     <div className="col-md-12">
                         {eventGroups}

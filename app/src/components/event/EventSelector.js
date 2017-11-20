@@ -9,7 +9,7 @@ class EventSelector extends React.Component {
 
     render() {
         const {status, onChange, events} = this.props;
-        const style = {width: '100%'};
+        const style = {width: '100%', marginBottom: '10px'};
 
         if (status === 'loading') {
             return <select disabled style={style}><option>Loading events...</option></select>;
@@ -20,7 +20,7 @@ class EventSelector extends React.Component {
         }
 
         return (
-            <select style={style} onChange={onChange.bind(this)}>
+            <select onChange={onChange.bind(this)} style={style}>
                 <option value="" key="default">-- Select Event --</option>
                 {events.valueSeq().map(event => (
                     <option value={event.get('eventId')} key={event.get('eventId')}>{event.get('name')}</option>

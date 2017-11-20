@@ -6,7 +6,7 @@ import EventList from './EventList';
 
 const EventGroup = ({title, events, markets, showPrimaryMarkets}) => (
     <div>
-        <h4>{title}</h4>
+        <h3>{title}</h3>
         <EventList events={events} markets={markets} showPrimaryMarkets={showPrimaryMarkets} />
     </div>
 );

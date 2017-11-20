@@ -18,7 +18,6 @@ const getInitialState = () => {
 };
 
 // Events
-
 it('reduces REQUEST_EVENTS', () => {
     const state = reducer(undefined, {
         type: 'REQUEST_EVENTS',
@@ -64,7 +63,6 @@ it('reduces RECEIVE_EVENTS', () => {
 });
 
 // Individual Event
-
 it('reduces REQUEST_EVENT', () => {
     const state = reducer(undefined, {
         type: 'REQUEST_EVENT',
@@ -106,7 +104,6 @@ it('reduces RECEIVE_EVENT', () => {
 });
 
 // Markets
-
 it('reduces REQUEST_MARKET', () => {
     const state = reducer(undefined, {
         type: 'REQUEST_MARKET',
@@ -142,4 +139,29 @@ it('reduces RECEIVE_MARKET', () => {
     expect(state.events.size).toEqual(1);
     expect(state.markets.size).toEqual(1);
     expect(state.outcomes.size).toEqual(3);
+});
+
+// Websockets
+it('reduces PRICE_CHANGE and OUTCOME_STATUS', () => {
+    const marketId = 2;
+    const outcomeId = 3;
+
+    const data = {
+        eventId: 1,
+        marketId,
+        outcomeId,
+        price: {decimal: '2.625', num: '13', den: '8'},
+        status: {active: true, resulted: false, cashoutable: false, displayable: true, suspended: false, result: "-"}
+    };
+
+    ['PRICE_CHANGE', 'OUTCOME_STATUS'].map(type => {
+        const state = reducer(getInitialState(), {type, data});
+        const outcomes = state.outcomes.get(marketId.toString());
+
+        expect(outcomes.size).toEqual(2);
+
+        const outcome = outcomes.get(0);
+        expect(outcome.get('price').toJS()).toEqual(data.price);
+        expect(outcome.get('status').toJS()).toEqual(data.status);
+    });
 });

@@ -19,18 +19,30 @@ class Market extends React.Component {
     }
 
     render() {
-        const {market} = this.props;
+        const {market, showName} = this.props;
         const {showingOutcomes} = this.state;
 
-        return (
-            <div>
-                <h5 onClick={this.toggleOutcomes.bind(this)}>
-                    <strong>{market.get('name')}</strong>
-                </h5>
+        let className = 'collapsible-item';
 
+        if (showingOutcomes) {
+            className += ' collapsible-item-open';
+        }
+
+        return (
+            <div className={className}>
+                {showName?
+                    <h5>
+                        <a onClick={this.toggleOutcomes.bind(this)}>
+                            <strong>{market.get('name')}</strong>
+                        </a>
+                    </h5>
+                :null}
+
+                <div className="collapsible-item-content">
                 {showingOutcomes?
                     <OutcomeListContainer market={market} />
                 : null}
+                </div>
             </div>
         )
     }
@@ -38,6 +50,7 @@ class Market extends React.Component {
 
 Market.propTypes = {
     market: PropTypes.instanceOf(Map).isRequired,
+    showName: PropTypes.bool,
     showOutcomes: PropTypes.bool,
 };
 

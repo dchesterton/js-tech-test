@@ -3,7 +3,10 @@ import {shallow} from 'enzyme';
 import {Map, fromJS} from 'immutable';
 
 import OutcomeList from './OutcomeList';
-import Outcome from './Outcome';
+
+import Standard from './Outcomes/Standard';
+import CorrectScore from './Outcomes/CorrectScore';
+import WinDrawWin from './Outcomes/WinDrawWin';
 
 import Error from '../shared/Error';
 import Loading from '../shared/Loading';
@@ -25,8 +28,14 @@ it('renders error', () => {
 it('renders outcomes', () => {
     const outcomes = fromJS([{outcomeId: 1}, {outcomeId: 2}]);
 
-    const wrapper = shallow(<OutcomeList market={Map()} fetchMarket={()=>{}} outcomes={outcomes} />);
-    expect(wrapper.find(Outcome)).toHaveLength(2);
+    const standardWrapper = shallow(<OutcomeList market={Map()} fetchMarket={()=>{}} outcomes={outcomes} />);
+    expect(standardWrapper.find(Standard)).toHaveLength(1);
+
+    const correctScoreWrapper = shallow(<OutcomeList market={Map({type: 'correct-score'})} fetchMarket={()=>{}} outcomes={outcomes} />);
+    expect(correctScoreWrapper.find(CorrectScore)).toHaveLength(1);
+
+    const winDrawWinWrapper = shallow(<OutcomeList market={Map({type: 'win-draw-win'})} fetchMarket={()=>{}} outcomes={outcomes} />);
+    expect(winDrawWinWrapper.find(WinDrawWin)).toHaveLength(1);
 });
 
 it('calls fetchMarket if it does not have outcomes', () => {

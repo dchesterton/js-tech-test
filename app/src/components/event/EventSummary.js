@@ -5,7 +5,7 @@ import {Map} from 'immutable';
 import {formatDate} from '../../util';
 
 const EventSummary = ({event}) => (
-    <div className="text-center" style={{margin: '20px 0'}}>
+    <div className="text-center" style={{margin: '7px 0 15px'}}>
         <h4>
             {event.get('name')}<br />
             <small>

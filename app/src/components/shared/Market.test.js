@@ -13,7 +13,7 @@ it('renders without crashing', () => {
 it('renders name', () => {
     const name = 'Market Name';
     const market = Map({name});
-    const wrapper = shallow(<Market market={market} />);
+    const wrapper = shallow(<Market market={market} showName={true} />);
 
     expect(wrapper).toIncludeText(name);
 });
@@ -30,9 +30,9 @@ it('does not render outcomes when showOutcomes prop is false', () => {
 });
 
 it('toggles outcomes on click', () => {
-    const wrapper = shallow(<Market market={Map()} />);
+    const wrapper = shallow(<Market market={Map()} showName={true} />);
 
-    const title = wrapper.find('h5');
+    const title = wrapper.find('a');
 
     // test that a click shows the outcomes
     title.simulate('click');

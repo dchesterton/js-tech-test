@@ -111,12 +111,6 @@ const data = (state = {
                               .set('status', Map(action.data.status));
             });
 
-            const event = state.events.find(event => event.get('eventId') === action.data.eventId);
-            const market = state.markets.get(action.data.eventId.toString()).find(market => market.get('marketId') === action.data.marketId);
-            const outcome = outcomes.get(marketIdString).find(outcome => outcome.get('outcomeId') === action.data.outcomeId);
-
-            console.log('Updating outcome ' + outcome.get('name')  + ', for market ' + market.get('name') + ', for ' + event.get('name'), action.data.price);
-
             return Object.assign({}, state, {outcomes});
 
         default:

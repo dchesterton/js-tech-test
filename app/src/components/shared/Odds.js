@@ -5,9 +5,9 @@ import {ODDS_FRACTIONAL, ODDS_DECIMAL} from '../../constants';
 const Odds = ({price, display}) => {
     switch (display) {
     case ODDS_FRACTIONAL:
-        return <span>{price.num}/{price.den}</span>;
+        return <span className="outcome-price">{price.num}/{price.den}</span>;
     case ODDS_DECIMAL:
-        return <span>{price.decimal}</span>;
+        return <span className="outcome-price">{price.decimal}</span>;
     default:
         return <span />;
     }
