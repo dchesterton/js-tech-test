@@ -91,6 +91,38 @@ const data = (state = {
                 outcomes: mergeOutcomes(action.data.outcomes, state.outcomes),
             });
 
+        case 'PRICE_CHANGE':
+        case 'OUTCOME_STATUS':
+            const outcomeId = action.data.outcomeId;
+            const marketIdString = action.data.marketId.toString();
+
+            const marketOutcomes = state.outcomes.get(marketIdString);
+
+            if (!marketOutcomes) {
+                return state;
+            }
+
+            const outcomesIdx = marketOutcomes.findIndex(outcome => outcome.get('outcomeId') === outcomeId);
+
+            if (outcomesIdx < 0) {
+                return state;
+            }
+
+            const outcomes = state.outcomes.updateIn([marketIdString, outcomesIdx], outcome => {
+                return outcome.set('price', Map(action.data.price))
+                              .set('status', Map(action.data.status));
+            });
+
+            const event = state.events.find(event => event.get('eventId') === action.data.eventId);
+            const market = state.markets.get(action.data.eventId.toString()).find(market => market.get('marketId') === action.data.marketId);
+            const outcome = outcomes.get(marketIdString).find(outcome => outcome.get('outcomeId') === action.data.outcomeId);
+
+            console.log('Updating outcome ' + outcome.get('name')  + ', for market ' + market.get('name') + ', for ' + event.get('name'), action.data.price);
+
+            return Object.assign({}, state, {
+                outcomes
+            });
+
         default:
             return state;
     }

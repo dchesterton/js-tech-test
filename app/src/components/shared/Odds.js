@@ -15,9 +15,9 @@ const Odds = ({price, display}) => {
 
 Odds.propTypes = {
     price: PropTypes.shape({
-        num: PropTypes.string.isRequired,
-        den: PropTypes.string.isRequired,
-        decimal: PropTypes.string.isRequired,
+        num: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+        den: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+        decimal: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     }).isRequired,
     display: PropTypes.oneOf([ODDS_FRACTIONAL, ODDS_DECIMAL]).isRequired,
 };
