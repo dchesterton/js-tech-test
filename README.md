@@ -3,7 +3,8 @@
 ## Technologies Used
 I used React + Redux to develop the application. I used these technologies as I know you use them
 at Sky Bet use and I wanted to showcase my ability. I also believe they're great technologies for
-developing complex frontend UI's.
+developing complex frontend UI's. I added Facebook's Immutable.js library to make it easier to
+manage the state of the application and to ensure components were updated as data changed.
 
 I bootstrapped the app using `create-react-app` as it provides a good starting point for developing
 React apps, without having to manually configure Webpack etc.
