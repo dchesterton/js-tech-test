@@ -7,7 +7,7 @@ const Header = ({children}) => (
     <div className="row" style={{marginTop: '20px'}}>
         <div className="col-xs-8">
             <Link to="/">
-                <img src="https://st1.skybet.com/static/mbet/img/content/logos/skybet-mobile-logo.png" alt="" />
+                <img src="/logo.png" alt="" />
             </Link>
             &nbsp;&nbsp;
 
